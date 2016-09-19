@@ -26,8 +26,9 @@ public class TrackingDialog extends DialogFragment {
     ProgressBar bar;
 
     public TrackingDialog() {
-
+        //don't use me!
     }
+
 
     public static TrackingDialog newInstance(String tSSID, String tBSSID) {
         TrackingDialog ret = new TrackingDialog();
@@ -36,6 +37,10 @@ public class TrackingDialog extends DialogFragment {
         return ret;
     }
 
+    /**
+     * Updates (or populates) view with fresh data
+     * @param data
+     */
     public void update(ScanResult data) {
         if (data != null) {
             if (data.SSID.equals("")) {
@@ -47,6 +52,7 @@ public class TrackingDialog extends DialogFragment {
             } else {
                 ssid.setText(data.SSID);
             }
+
             bssid.setText(data.BSSID);
             bar.setMax(100);
             int calcSignal = data.level + 100;
@@ -64,7 +70,7 @@ public class TrackingDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("TrackingDialog.onCreateView");
+        //System.out.println("TrackingDialog.onCreateView");
         return inflater.inflate(R.layout.tracker_dialog, container);
     }
 

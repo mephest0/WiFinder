@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     static MainActivity mainActivity;
     WifiManager manager;
     ListView listView;
-    String[] wifis;
     boolean hasShownHint;
     WifiScanReceiver wifiReciever;
     private boolean isWaitingForScanResult;
@@ -155,15 +154,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public void onClickGetConnectionInfo(View view) {
-        printConnectionInfo();
-    }
-
     public void onClickStartScan(View view) {
         startScan();
     }
 
+    /**
+     * Returns (readable) name of enctyption
+     * @param result
+     * @return
+     */
     public static String getSecurity(ScanResult result) {
         if (result.capabilities.contains("WEP")) {
             return "WEP";
@@ -175,7 +174,15 @@ public class MainActivity extends AppCompatActivity {
         return "Not secured";
     }
 
+    /**
+     * Callback
+     */
     private class WifiScanReceiver extends BroadcastReceiver {
+        /**
+         * Called by OS when results of Wifi-scan is refreshed
+         * @param c
+         * @param intent
+         */
         public void onReceive(Context c, Intent intent) {
             updateScanResults();
         }
@@ -185,8 +192,14 @@ public class MainActivity extends AppCompatActivity {
         return mainActivity;
     }
 
+    /**
+     * Returns name of chip manufacturer by MAC
+     * @param mac duh
+     * @return name
+     */
     public static String resolveManufacturer(String mac) {
         if (manufacturerList == null)
+            // dynamic programming ftw
             manufacturerList = new HashMap<>();
 
         mac = mac.replace(":", "");
