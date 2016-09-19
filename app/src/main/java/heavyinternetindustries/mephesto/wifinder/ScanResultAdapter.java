@@ -21,6 +21,8 @@ import java.util.List;
 
 /**
  * Created by mephest0 on 22.05.16.
+ *
+ * This class prepares views for the list containing all scan results.
  */
 public class ScanResultAdapter extends ArrayAdapter<ScanResult> {
     List<ScanResult> list;

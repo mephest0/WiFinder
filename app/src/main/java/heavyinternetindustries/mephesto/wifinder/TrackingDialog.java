@@ -38,7 +38,7 @@ public class TrackingDialog extends DialogFragment {
     }
 
     /**
-     * Updates (or populates) view with fresh data
+     * Updates (or populates) dialog with fresh data
      * @param data
      */
     public void update(ScanResult data) {

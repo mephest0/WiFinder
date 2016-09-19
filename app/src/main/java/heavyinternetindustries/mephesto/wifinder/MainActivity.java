@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mainActivity = this;
         hasShownHint = false;
 
+        // checks for (and asks for) needed permissions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 !(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED)) {
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    /**
+     * for debugging, etc. Only prints to sout
+     */
     private void printConnectionInfo() {
         WifiInfo connectionInfo = manager.getConnectionInfo();
         System.out.println("frequency: " + connectionInfo.getFrequency());
@@ -97,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         isWaitingForScanResult = false;
     }
 
+    /**
+     * Displays snack bar with a friendly hint
+     */
     private void showHintSnackbar() {
         View layout = findViewById(R.id.mainLayout);
         if (layout != null && !hasShownHint) {
@@ -106,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Initiates tracking of signal strength and shows tracking dialog
+     * @param network
+     */
     private void selectedNetworkForTracking(ScanResult network) {
         FragmentManager fm = getSupportFragmentManager();
         trackingDialog = TrackingDialog.newInstance(network.SSID, network.BSSID);
@@ -115,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
         startScan();
     }
 
+    /**
+     * Passes results of scan to tracking dialog
+     * @param data
+     */
     private void updateDialog(ScanResult data) {
         trackingDialog.update(data);
     }
@@ -150,10 +165,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else {
+            // TODO Alert
             System.out.println("Permission not granted");
         }
     }
 
+    /**
+     * Click listener, starts scan
+     * @param view
+     */
     public void onClickStartScan(View view) {
         startScan();
     }
@@ -175,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Callback
+     * Broadcast receiver for wifi scan results
      */
     private class WifiScanReceiver extends BroadcastReceiver {
         /**
