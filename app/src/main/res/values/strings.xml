@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WiFinder</string>
+    <string name="ssid_hidden">HIDDEN NETWORK</string>
+    <string name="no_manufacturer_name">Unknown manufacturer</string>
+    <string name="signal_good">good</string>
+    <string name="signal_ok">ok</string>
+    <string name="signal_bad">bad</string>
+</resources>
